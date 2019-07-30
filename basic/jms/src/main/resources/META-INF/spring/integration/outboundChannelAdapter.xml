@@ -5,18 +5,18 @@
 	xmlns:jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd
+			https://www.springframework.org/schema/integration/spring-integration.xsd
 			http://www.springframework.org/schema/integration/jms
-			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			https://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 			http://www.springframework.org/schema/integration/stream
-			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+			https://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
-	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
+	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsOutChannel"/>
 
-	<channel id="stdinToJmsoutChannel"/>
+	<channel id="stdinToJmsOutChannel"/>
 
-	<jms:outbound-channel-adapter id="jmsout" channel="stdinToJmsoutChannel" destination="requestQueue"/>
+	<jms:outbound-channel-adapter id="jmsout" channel="stdinToJmsOutChannel" destination="requestQueue"/>
 
 </beans:beans>

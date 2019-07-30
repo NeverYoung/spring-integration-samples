@@ -1,11 +1,11 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,8 @@ package org.springframework.integration.samples.storedprocedure;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -30,12 +31,13 @@ import org.springframework.integration.service.CoffeeService;
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.2
  *
  */
 public class Main {
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
 	private static final String LINE    = "\n=========================================================";
 	private static final String NEWLINE = "\n";
@@ -54,7 +56,7 @@ public class Main {
 				+ "\n    Welcome to Spring Integration Coffee Database!       "
 				+ NEWLINE
 				+ "\n    For more information please visit:                   "
-				+ "\n    http://www.springsource.org/spring-integration       "
+				+ "\n    https://www.springsource.org/spring-integration       "
 				+ NEWLINE
 				+ LINE );
 
@@ -100,7 +102,8 @@ public class Main {
 
 		LOGGER.info("Exiting application...bye.");
 
-		System.exit(0);
+		scanner.close();
+		context.close();
 
 	}
 }

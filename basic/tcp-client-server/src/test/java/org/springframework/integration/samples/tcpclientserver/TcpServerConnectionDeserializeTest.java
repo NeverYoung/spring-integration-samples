@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import static org.junit.Assert.assertEquals;
@@ -25,14 +26,16 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.messaging.SubscribableChannel;
+import org.springframework.integration.endpoint.AbstractEndpoint;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
+import org.springframework.integration.ip.tcp.connection.AbstractClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,11 +50,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Christian Posta
  * @author Gunnar Hillert
+ * @author Artem Bilan
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader=CustomTestContextLoader.class,
-	locations = {"/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml"})
+@ContextConfiguration("/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml")
 @DirtiesContext
+@SpringIntegrationTest(noAutoStartup = "outGateway")
 public class TcpServerConnectionDeserializeTest {
 
 	@Autowired
@@ -64,9 +68,20 @@ public class TcpServerConnectionDeserializeTest {
 	@Autowired
 	AbstractServerConnectionFactory crLfServer;
 
+	@Autowired
+	AbstractClientConnectionFactory client;
+
+	@Autowired
+	AbstractEndpoint outGateway;
+
+
 	@Before
 	public void setup() {
-		TestingUtilities.waitListening(this.crLfServer, 10000L);
+		if (!this.outGateway.isRunning()) {
+			TestingUtilities.waitListening(this.crLfServer, 10000L);
+			this.client.setPort(this.crLfServer.getPort());
+			this.outGateway.start();
+		}
 	}
 
 	@Test
@@ -100,7 +115,7 @@ public class TcpServerConnectionDeserializeTest {
 	 * Show, explicitly, how the stream would look if you had to manually create it.
 	 *
 	 * See more about TCP synchronous communication for more about framing the stream
-	 * with STX/ETX:  http://en.wikipedia.org/wiki/Binary_Synchronous_Communications
+	 * with STX/ETX:  https://en.wikipedia.org/wiki/Binary_Synchronous_Communications
 	 *
 	 * @param content
 	 * @return a string that is wrapped with the STX/ETX framing bytes
@@ -112,4 +127,5 @@ public class TcpServerConnectionDeserializeTest {
 		writer.write(ByteArrayStxEtxSerializer.ETX);
 		return writer.toString();
 	}
+
 }

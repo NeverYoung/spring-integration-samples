@@ -3,7 +3,7 @@ Spring Integration Samples
 
 # Note
 
-This (master) branch requires Spring Integration 4.1 or above. For samples running against earlier versions of Spring Integration, use the __SI4.0.x__ and __SI3.0.x__ branches.
+This (master) branch requires Spring Integration 5.0 or above. For samples running against earlier versions of Spring Integration, use the __SI4.3.x__ and other branches.
 
 # Introduction
 
@@ -26,6 +26,7 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 * [Spring Integration][]
 * [Spring Integration Extensions][]
 * [Spring Integration Templates][]
+* [Spring Integration Java Dsl][]
 * [Spring Integration Dsl Groovy][]
 * [Spring Integration Dsl Scala][]
 * [Spring Integration Pattern Catalog][]
@@ -67,13 +68,15 @@ This is a good place to get started. The samples here are technically motivated 
 * **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Trigers, **Service Activator**
 * **sftp** - Demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
 * **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
+* **tcp-broadcast** - Demonstrates broadcasting a message to multiple connected TCP clients.
 * **tcp-client-server** - Demonstrates socket communication using **TcpOutboundGateway**, **TcpInboundGateway** and also uses a **Gateway** and a **Service Activator**
+* **tcp-with-headers** - Demonstrates sending headers along with the payload over TCP using JSON.
 * **testing-examples** - A series of test cases that show techniques to **test** Spring Integration applications.
 * **twitter** - Illustrates Twitter support using the **Twitter Inbound Channel Adapter**, **Twitter Inbound Search Channel Adapter**, **Twitter Outbound Channel Adapter**
 * **ws-inbound-gateway** - Example showing basic functionality of the **Web Service Gateway**
 * **ws-outbound-gateway** - Shows outbound web services support using the **Web Service Outbound Gateway**, **Content Enricher**, Composed Message Processor (**Chain**)
 * **xml** - Example demonstrates various aspects of the **Xml** support using an **XPath Splitter**, **XPath Router**, **XSLT Transformer** as well as **XPath Expression** support
-* **xmpp** - Show the support for [**XMPP**](http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
+* **xmpp** - Show the support for [**XMPP**](https://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
 
 ## Intermediate
 
@@ -85,15 +88,15 @@ This category targets developers who are already more familiar with the Spring I
 * **errorhandling** - Demonstrates basic **Error Handling** capabilities of Spring Integration
 * **file-processing** - Sample demonstrates how to wire a message flow to process files either sequentially (maintain the order) or concurrently (no order).
 * **mail-attachments** - Demonstrates the processing of email attachments
-* **monitoring** The project used in the *[Spring Integration Management and Monitoring Webinar](http://www.springsource.org/node/3598)* Also available on the *[SpringSourceDev YouTube Channel](http://www.youtube.com/SpringSourceDev)*
+* **monitoring** The project used in the *[Spring Integration Management and Monitoring Webinar](https://www.springsource.org/node/3598)* Also available on the *[SpringSourceDev YouTube Channel](https://www.youtube.com/SpringSourceDev)*
 * **multipart-http** - Demonstrates the sending of HTTP multipart requests using Spring's **RestTemplate** and a Spring Integration **Http Outbound Gateway**
 * **rest-http** - This sample demonstrates how to send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage. This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
 * **retry-and-more** Provides samples showing the application of MessageHandler Advice Chains to endpoints - retry, circuit breaker, expression evaluating
 * **splitter-aggregator-reaper** A demonstration of implementing the Splitter and Aggregator *Enterprise Integration Patterns* (EIP) together. This sample also provides a concrete example of a [message store reaper][] in action.
-* **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](http://db.apache.org/derby/)*
+* **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](https://db.apache.org/derby/)*
 * **stored-procedures-ms** Provides an example of the stored procedure Outbound Gateway using *Microsoft SQL Server*
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
-* **stored-procedures-postgresql** Provides an example of the stored procedure Outbound Gateway using *[PostgreSQL](http://www.postgresql.org/)*
+* **stored-procedures-postgresql** Provides an example of the stored procedure Outbound Gateway using *[PostgreSQL](https://www.postgresql.org/)*
 * **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters*
 * **travel** - More sophisticated example showing the retrieval of weather (SOAP Web Service) and traffic (HTTP Service) reports using real services
 * **tx-synch** Provides a sample demonstrating the use of transaction synchronization, renaming an input file to a different filename, depending on whether the transaction commits, or rolls back.
@@ -104,30 +107,37 @@ This category targets advanced developers who are quite familiar with Spring Int
 
 * **advanced-testing-examples** - Example test cases that show advanced techniques to test Spring Integration applications
 * **dynamic-ftp** - Demonstrates one technique for sending files to dynamic destinations.
+* **dynamic-tcp-client** - Demonstrates a technique for dynamically creating TCP clients.
 
 ## Applications
 
 This category targets developers and architects who have a good understanding of Message-Driven architecture and Enterprise Integration Patterns, and have an above average understanding of Spring and Spring integration and who are looking for samples that address a particular business problem. In other words, the emphasis of samples in this category is '**business use cases**' and how they can be solved via a Messaging architecture and Spring Integration in particular. For example, if you are interested to see how a Loan Broker process or Travel Agent process could be implemented and automated via Spring Integration, this would be the right place to find these types of samples.
 
-* **cafe** - Emulates a simple operation of a coffee shop combining various Spring Integration adapters (Including **Router** and **Splitter**) see [Appendix A of the reference documentation](http://static.springsource.org/spring-integration/docs/latest-ga/reference/html/samples.html) for more details. Implementations are provided for:
+* **cafe** - Emulates a simple operation of a coffee shop combining various Spring Integration adapters (Including **Router** and **Splitter**) see [Appendix A of the reference documentation](https://docs.spring.io/spring-integration/docs/current/reference/html/#samples) for more details. Implementations are provided for:
   - AMQP
   - JMS
   - In memory channels
 * **cafe-scripted** - Scripted implementation of the classic **cafe** sample application. Supports **JavaScript**, **Groovy**, **Ruby**, and **Python**.
-* **loan-broker** - Simulates a simple banking application (Uses **Gateway**, **Chain**, **Header Enricher**, **Recipient List Router**, **Aggregator**) see [Appendix A of the reference documentation](http://static.springsource.org/spring-integration/docs/latest-ga/reference/html/samples.html) for more details
+* **loan-broker** - Simulates a simple banking application (Uses **Gateway**, **Chain**, **Header Enricher**, **Recipient List Router**, **Aggregator**) see [Appendix A of the reference documentation](https://docs.spring.io/spring-integration/docs/current/reference/html/#samples) for more details
 * **loanshark** This extension to the loan broker sample shows how to exchange messages between Spring Integration applications (and other technologies) using **UDP**.
+  **file-split-ftp** - Reads a file; splits into 3 based on contents; sends files over ftp; sends email with results.
 
-#Resources
+# Contributing
 
-For more information, please visit the Spring Integration website at: [http://www.springsource.org/spring-integration](http://www.springsource.org/spring-integration)
+See the [Spring Integration Contributor Guidelines](https://github.com/spring-projects/spring-integration/blob/master/CONTRIBUTING.adoc) for information about how to contribute to this repository.
 
-[Spring Integration]: https://github.com/SpringSource/spring-integration
-[Spring Integration Extensions]: https://github.com/SpringSource/spring-integration-extensions
-[Spring Integration Templates]: https://github.com/SpringSource/spring-integration-templates/tree/master/si-sts-templates
-[Spring Integration Dsl Groovy]: https://github.com/SpringSource/spring-integration-dsl-groovy
-[Spring Integration Dsl Scala]: https://github.com/SpringSource/spring-integration-dsl-scala
-[Spring Integration Pattern Catalog]: https://github.com/SpringSource/spring-integration-pattern-catalog
+# Resources
 
-[message store reaper]: http://static.springsource.org/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
+For more information, please visit the Spring Integration website at: [https://projects.spring.io/spring-integration/](https://projects.spring.io/spring-integration/)
+
+[Spring Integration]: https://github.com/spring-projects/spring-integration
+[Spring Integration Extensions]: https://github.com/spring-projects/spring-integration-extensions
+[Spring Integration Templates]: https://github.com/spring-projects/spring-integration-templates/tree/master/si-sts-templates
+[Spring Integration Java Dsl]: https://github.com/spring-projects/spring-integration-java-dsl
+[Spring Integration Dsl Groovy]: https://github.com/spring-projects/spring-integration-dsl-groovy
+[Spring Integration Dsl Scala]: https://github.com/spring-projects/spring-integration-dsl-scala
+[Spring Integration Pattern Catalog]: https://github.com/spring-projects/spring-integration-pattern-catalog
+
+[message store reaper]: https://docs.spring.io/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
 
 [Xavier Padró]: https://github.com/xpadro/spring-integration

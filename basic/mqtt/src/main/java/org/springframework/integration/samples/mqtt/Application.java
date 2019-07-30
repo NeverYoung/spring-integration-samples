@@ -1,11 +1,11 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,15 +15,16 @@
  */
 package org.springframework.integration.samples.mqtt;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.core.Pollers;
+import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.endpoint.MessageProducerSupport;
 import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
@@ -41,10 +42,9 @@ import org.springframework.messaging.MessageHandler;
  *
  */
 @SpringBootApplication
-@IntegrationComponentScan
 public class Application {
 
-	private static final Logger LOGGER = Logger.getLogger(Application.class);
+	private static final Log LOGGER = LogFactory.getLog(Application.class);
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -79,9 +79,11 @@ public class Application {
 	@Bean
 	public MqttPahoClientFactory mqttClientFactory() {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-		factory.setServerURIs("tcp://localhost:1883");
-		factory.setUserName("guest");
-		factory.setPassword("guest");
+		MqttConnectOptions options = new MqttConnectOptions();
+		options.setServerURIs(new String[] { "tcp://localhost:1883" });
+		options.setUserName("guest");
+		options.setPassword("guest".toCharArray());
+		factory.setConnectionOptions(options);
 		return factory;
 	}
 

@@ -5,7 +5,7 @@
  *     you may not use this file except in compliance with the License.
  *     You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         https://www.apache.org/licenses/LICENSE-2.0
  *
  *     Unless required by applicable law or agreed to in writing, software
  *     distributed under the License is distributed on an "AS IS" BASIS,
@@ -85,7 +85,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 
 	public void marshal(Object zip, Result result) throws IOException,
 			XmlMappingException {
-		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"http://ws.cdyne.com/WeatherWS/\">" +
+		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {
@@ -125,6 +125,6 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");
+		namespacePrefixes.put("p", "https://ws.cdyne.com/WeatherWS/");
 	}
 }

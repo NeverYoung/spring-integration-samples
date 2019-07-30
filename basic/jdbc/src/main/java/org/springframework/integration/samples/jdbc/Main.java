@@ -1,11 +1,11 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.jdbc.domain.Gender;
@@ -34,12 +36,13 @@ import org.springframework.integration.samples.jdbc.service.PersonService;
  *
  * @author Gunnar Hillert
  * @author Amol Nayak
+ * @author Gary Russell
  * @version 1.0
  *
  */
 public final class Main {
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
 	private Main() { }
 
@@ -55,7 +58,7 @@ public final class Main {
 				  + "\n          Welcome to Spring Integration!                 "
 				  + "\n                                                         "
 				  + "\n    For more information please visit:                   "
-				  + "\n    http://www.springsource.org/spring-integration       "
+				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
 				  + "\n=========================================================" );
 
@@ -101,7 +104,7 @@ public final class Main {
 
 		LOGGER.info("Exiting application...bye.");
 
-		System.exit(0);
+		context.close();
 
 	}
 
@@ -139,8 +142,9 @@ public final class Main {
 			System.out.println("Created person record with id: " + person.getPersonId());
 			System.out.print("Do you want to create another person? (y/n)");
 			String choice  = scanner.nextLine();
-			if(!"y".equalsIgnoreCase(choice))
+			if(!"y".equalsIgnoreCase(choice)) {
 				break;
+			}
 		}
 	}
 	/**
@@ -165,8 +169,9 @@ public final class Main {
 			}
 			System.out.print("Do you want to find another person? (y/n)");
 			String choice  = scanner.nextLine();
-			if(!"y".equalsIgnoreCase(choice))
+			if(!"y".equalsIgnoreCase(choice)) {
 				break;
+			}
 		}
 
 	}

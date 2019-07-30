@@ -1,11 +1,11 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,13 +17,15 @@ package org.springframework.integration.samples.travel;
 
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 public final class Main {
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
 	/**
 	 * Prevent instantiation.
@@ -56,7 +58,7 @@ public final class Main {
 						+ "\n    Welcome to the Spring Integration Travel App!        "
 						+ "\n                                                         "
 						+ "\n    For more information please visit:                   "
-						+ "\n    http://www.springintegration.org/                    "
+						+ "\n    https://www.springsource.org/spring-integration/                    "
 						+ "\n                                                         "
 						+ "\n=========================================================" );
 
@@ -73,8 +75,9 @@ public final class Main {
 
 			if("q".equals(input.trim())) {
 				System.out.println("Exiting application...bye.");
-				System.exit(0);
-			} else {
+				break;
+			}
+			else {
 
 				final Integer cityId = Integer.valueOf(input);
 				final City city = City.getCityForId(cityId);
@@ -93,7 +96,8 @@ public final class Main {
 									+ "\n    Traffic:"
 									+ "\n=========================================================" );
 					System.out.println(trafficReply);
-				} else {
+				}
+				else {
 					LOGGER.warn("Skipping Traffic Information call. Did you setup your MapQuest API Key? " +
 							"e.g. by calling:\n\n    $ mvn exec:java -Dmapquest.apikey=\"your_mapquest_api_key_url_decoded\"");
 				}
@@ -104,5 +108,9 @@ public final class Main {
 				System.out.print("Enter your choice: ");
 			}
 		}
+
+		scanner.close();
+		context.close();
 	}
+
 }
